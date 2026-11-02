@@ -1,0 +1,13 @@
+Bài 8: Vá Lỗ Hổng Bảo Mật Cookie Bệnh Án Và Khắc Phục Lỗi Cache Thuốc Cũ
+*Vấn đề : -Sự cố Kê đơn: Các bác sĩ phàn nàn rằng bảng giá và danh mục thuốc mới cập nhật đã được phía Server tải lên từ tối qua, nhưng trên màn hình của họ vẫn hiển thị bảng giá cũ của tuần trước.\\
+          -Cảnh báo Bảo mật: Chuyên gia an ninh mạng độc lập gửi báo cáo cảnh báo: Cookie phiên làm việc của bác sĩ đang bị hở sườn và có nguy cơ bị chiếm quyền tài khoản (Session Hijacking).
+*Yêu cầu : Phần 1: Phân tích lỗ hổng & nguyên nhân
+          Phần 2: Hoàn thiện giải pháp & Thao tác DevTools
+*Giải tuyết vấn đề :
+- phần 1: phân tích
++ do file lưu trong cache, trình duyệt không gửi request mới lên server.
++ dùng document.cookie. thiếu httponly/secure dẫn đến xss và session hijacking, hacker đánh cắp tài khoản y tế.
+- phần 2: giải pháp
++ nhấn ctrl + shift + r.
++ Set-Cookie: name=val; Domain=carepulse.vn; Path=/; Secure; HttpOnly; SameSite=Strict
++ f12 -> application (kiểm tra cookie) -> network (tích vào disable cache).
